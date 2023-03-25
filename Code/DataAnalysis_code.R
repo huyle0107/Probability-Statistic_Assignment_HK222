@@ -64,3 +64,16 @@ boxplot(clean_heat_data$Y1, main = "Heating Load", xlab = "Values", col = "red")
 #Y2: Cooling Load
 hist(clean_heat_data$Y2, main = "Cooling Load", xlab = "Values", col = "blue")
 boxplot(clean_heat_data$Y2, main = "Cooling Load", xlab = "Values", col = "red")
+
+############################# Fitting linear regression models ##############################
+
+#Assign heating load to y vector
+y <- clean_heat_data[ , 9]
+#Assign other variables (except cooling load) to x vector
+x <- as.matrix(clean_heat_data[ , 1:8])
+#Build linear regression model
+regl <- lm(y~x)
+#Result: coefficents of variables
+regl
+#Sumary of result
+summary(regl)
