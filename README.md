@@ -4,6 +4,8 @@ Dear Mr/ Mrs/ Miss,
 
 This folder include the topic, the report, datas as well as the source codes.
 
+The file Final.R is the main file for this project, the other files are either extra works or reference sections
+
 Thanks for reading my assigment.
 
 Best Regards ./.
