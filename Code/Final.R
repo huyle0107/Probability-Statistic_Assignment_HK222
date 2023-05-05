@@ -85,17 +85,20 @@ summary(LinearModel)
 plot(LinearModel)
 
 ########################### Prediction ############################
+# Predict
 # Creating a data frame
 set.seed(123)
+variable_Year <- data.frame(round(runif(1264, 18, 23),0))
 variable_Per <- data.frame(round(runif(1264, 4.0, 4.9), 1))
 # Fiting the linear model
 LinearModel_1 <- lm(sep_Intel$Recommended_Customer_Price ~ sep_Intel$Processor_Base_Frequency, data = sep_Intel)
 
 # Predicts the future values
-Predict_Price = predict(LinearModel_1, newdata = variable_Per)
+Predict_Price = predict(LinearModel_1, newdata = variable_Per + variable_Year)
 
 # add it to table
+x_col <- variable_Year
 y_col <- variable_Per
 z_col <- Predict_Price
-table_final <- cbind(y_col, z_col)
+table_final <- cbind(x_col, y_col, z_col)
 View(table_final)
