@@ -78,7 +78,7 @@ TukeyHSD(one_way_Fre)
 
 ########################### Regression ############################
 # Fiting the linear model
-LinearModel <- lm(sep_Intel$Processor_Base_Frequency ~ sep_Intel$Quarter + sep_Intel$Year, data = sep_Intel)
+LinearModel <- lm(sep_Intel$Processor_Base_Frequency ~ sep_Intel$Year, data = sep_Intel)
 summary(LinearModel)
 
 # plot data
