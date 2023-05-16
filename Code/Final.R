@@ -50,13 +50,6 @@ head(sep_Intel)
 #__________1. One way ANOVA for release price__________#
 one_way_Price <- aov(Recommended_Customer_Price ~ sep_Intel$Vertical_Segment, data = sep_Intel)
 
-# Levene's test to check the homogeneity of variance assumption
-leveneTest(Recommended_Customer_Price ~ sep_Intel$Vertical_Segment, data = sep_Intel)
-
-# Shapiro-Wilk test to check normality assumption
-residual_price <- residuals(one_way_Price)
-shapiro.test(residual_price)
-
 # Boxplot
 boxplot(sep_Intel$Recommended_Customer_Price ~ sep_Intel$Vertical_Segment, 
         main = "Release_Price by Manufacturer",
@@ -69,13 +62,6 @@ TukeyHSD(one_way_Price)
 #__________2. One way ANOVA for processor__________#
 one_way_Fre <- aov(sep_Intel$Processor_Base_Frequency ~ sep_Intel$Vertical_Segment, data = sep_Intel)
 
-# Levene's test to check the homogeneity of variance assumption
-leveneTest(sep_Intel$Processor_Base_Frequency ~ sep_Intel$Vertical_Segment, data = sep_Intel)
-
-# Shapiro-Wilk test to check normality assumption
-residual_Fre <- residuals(one_way_Fre)
-shapiro.test(residual_Fre)
-
 # Boxplot
 boxplot(sep_Intel$Processor_Base_Frequency ~ sep_Intel$Vertical_Segment, main = "Performance by Manufacturer",
         xlab = "Manufacturer", ylab = "Performance", col = c("green", "red", "yellow"), las=1)
@@ -83,6 +69,18 @@ summary(one_way_Fre)
 
 # TukeyHSD test to check difference between pairs of groups
 TukeyHSD(one_way_Fre)
+
+#__________2. Two way ANOVA for Price and Frequency__________#
+two_way_Pri <- aov(sep_Intel$Processor_Base_Frequency * sep_Intel$Recommended_Customer_Price ~ sep_Intel$Vertical_Segment, data = sep_Intel)
+
+# Boxplot
+boxplot(interaction(sep_Intel$Processor_Base_Frequency, sep_Intel$Recommended_Customer_Price) ~ sep_Intel$Vertical_Segment, main = "Performance & Price by Manufacturer",
+        xlab = "Manufactor", ylab = "Frequency & Price", col = c("green", "red", "yellow"), las=1)
+summary(two_way_Pri)
+
+# TukeyHSD test to check difference between pairs of groups
+TukeyHSD(two_way_Pri)
+
 
 ########################### Regression ############################
 # Fiting the linear model
