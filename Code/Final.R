@@ -12,7 +12,7 @@ library(tidyverse)  #the following 2 are used for multiple linear regression
 library(ggcorrplot)
 
 ################# Import data ##################
-Intel_CPUs <- read_csv("E:/Documents/Probability&Statistics/HK222/Assignment/Data/GPU/Source/Intel_CPUs.csv")
+Intel_CPUs <- read_csv("E:/Documents/Probability&Statistics/HK222/Assignment/Data/Intel_CPUs.csv")
 view(Intel_CPUs)
 head(Intel_CPUs)
 
@@ -84,18 +84,6 @@ summary(one_way_Fre)
 # TukeyHSD test to check difference between pairs of groups
 TukeyHSD(one_way_Fre)
 
-#__________2. Two way ANOVA for Price and Frequency__________#
-two_way_Pri <- aov(sep_Intel$Processor_Base_Frequency * sep_Intel$Recommended_Customer_Price ~ sep_Intel$Vertical_Segment, data = sep_Intel)
-
-# Boxplot
-boxplot(interaction(sep_Intel$Processor_Base_Frequency, sep_Intel$Recommended_Customer_Price) ~ sep_Intel$Vertical_Segment, main = "Performance & Price by Manufacturer",
-        xlab = "Manufactor", ylab = "Frequency & Price", col = c("green", "red", "yellow"), las=1)
-summary(two_way_Pri)
-
-# TukeyHSD test to check difference between pairs of groups
-TukeyHSD(two_way_Pri)
-
-
 ######################### Multiple Linear Regression #########################
 # Prepare data; We will predict price based on factors: Clock rate, TDP, # cores, # threads, lithography
 # Fit model, assuming that year does/ does not affect price
@@ -131,7 +119,6 @@ pred_data_simple<-data.frame(Processor_Base_Frequency=c(3.2))
 ########################### ARIMA on Price ##############################
 # Calculate Mean Price for each time stamp
 arima_data<-subset(sep_Intel,select=c(2,3,5))
-arima_data <- na.omit(arima_data)
 arima_data <- aggregate(arima_data$Recommended_Customer_Price, by=list(arima_data$Quarter,arima_data$Year), FUN=mean)
 
 # Prepare data for ARIMA
